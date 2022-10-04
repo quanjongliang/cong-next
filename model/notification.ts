@@ -23,7 +23,7 @@ export enum STATUS_SNACKBAR {
 }
 
 export enum VARIANT_SNACKBAR {
-	DEFAUL = "default",
+	DEFAULT = "default",
 	ALERT = "alert",
 }
 
