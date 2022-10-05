@@ -11,7 +11,9 @@ export default function BaseLayout({ children }: IData) {
       <Header />
       <Grid
         sx={{
-          marginTop: `50 px`,
+          marginTop: `70px`,
+          height: "100%",
+          p: 2,
         }}
       >
         {children}

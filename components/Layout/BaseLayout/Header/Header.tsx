@@ -1,11 +1,14 @@
-import { Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
+import { Grid, useTheme } from "@mui/material";
+import useAuth from "hooks/useAuth";
 import Auth from "./Auth.tsx/Auth";
 import Logo from "./Logo";
+import MenuHeader from "./MenuHeader";
 import SearchHeader from "./SearchHeader";
 
 export default function Header() {
   const theme = useTheme();
+  const { user } = useAuth();
+
   return (
     <Grid
       container
@@ -14,10 +17,11 @@ export default function Header() {
       alignItems="center"
       sx={{
         background: theme.palette.primary.light,
-        // position: "fixed",
-        // top: 0,
+        height: 70,
+        position: "fixed",
+        top: 0,
+        zIndex: 999,
       }}
-      p={1}
     >
       <Grid>
         <Logo />
@@ -25,9 +29,7 @@ export default function Header() {
       <Grid>
         <SearchHeader />
       </Grid>
-      <Grid>
-        <Auth />
-      </Grid>
+      <Grid>{user ? <MenuHeader user={user} /> : <Auth />}</Grid>
     </Grid>
   );
 }

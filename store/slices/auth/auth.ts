@@ -1,47 +1,42 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "shared/business/user";
-import { USER_ACCESS_TOKEN } from "model/auth";
-import { signIn } from "./auth-api";
-
-
+import { createSlice } from "@reduxjs/toolkit";
+import { USER_KEY } from "model/auth";
+import { UserInfoResponse } from "shared/business/user";
+import { canHandleLocalStorage } from "utils/window.util";
+import { getUserInfo } from "./auth-api";
 
 export interface IAuthStateProps {
-  access_token: string;
-  user?: User;
+  accessToken?: string;
+  user: UserInfoResponse | undefined;
 }
 
 const initialState: IAuthStateProps = {
   user: undefined,
-  access_token: localStorage.getItem(USER_ACCESS_TOKEN) || "",
+  accessToken: canHandleLocalStorage() ?  localStorage.getItem(USER_KEY) || '' : "",
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login(state, action: PayloadAction<{access_token: string, user: User}>) {
-
-    },
     logOut(state) {
-      localStorage.removeItem(USER_ACCESS_TOKEN);
-      state.access_token = "";
+      localStorage.removeItem(USER_KEY);
+      state.accessToken = "";
       state.user = undefined;
-    },
-    getCurrentUser(state) {
-      state.user = JSON.parse(state.access_token);
     },
   },
   extraReducers(builder) {
     builder
-      .addCase(signIn.fulfilled, (state, action) => {
-        const { access_token, user } = action.payload;
-        state.access_token = access_token;
-        localStorage.setItem(USER_ACCESS_TOKEN, access_token);
-        state.user = user;
+      .addCase(getUserInfo.fulfilled, (state, action) => {
+        if(action?.payload?.data){
+          state.user = action?.payload?.data ;
+          }else{
+            logOut()
+          }
       })
   },
 });
 
 export default authSlice.reducer;
 
-export const { logOut, getCurrentUser } = authSlice.actions;
+export const { logOut } = authSlice.actions;
+

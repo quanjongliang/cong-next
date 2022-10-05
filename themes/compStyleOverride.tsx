@@ -1,5 +1,5 @@
 // project imports
-import { Theme } from "@mui/material/styles";
+import { alpha, Theme } from "@mui/material/styles";
 
 export default function componentStyleOverrides(theme: Theme) {
   const mode = theme.palette.mode;
@@ -56,7 +56,10 @@ export default function componentStyleOverrides(theme: Theme) {
         },
         containedPrimary: {
           color: "white",
-          background: "#0077cc",
+          background: theme.palette.primary.light,
+          "&:hover": {
+            background: alpha(theme.palette.primary.light, 0.8),
+          },
         },
         containedError: {
           color: "white",
@@ -78,13 +81,6 @@ export default function componentStyleOverrides(theme: Theme) {
           borderRadius: `15px`,
           mb: 0.5,
           alignItems: "flex-start",
-        },
-      },
-    },
-    MuiTabPanel: {
-      styleOverrides: {
-        root: {
-          padding: "10px",
         },
       },
     },

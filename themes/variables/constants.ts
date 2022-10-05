@@ -11,4 +11,5 @@ export const itemXSControlCheckBoxFilter = 2.5;
 
 export const itemXSTextFieldFilter = 2.5;
 
+export const drawerWidth = 260;
 

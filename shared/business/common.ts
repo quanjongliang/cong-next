@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { PaginationMeta } from "model/layout";
 
 export enum ORDER {
@@ -8,4 +9,8 @@ export enum ORDER {
 export interface IResponsePagination<T>{
 	data:T[],
 	meta: PaginationMeta
+}
+
+export interface IErrorResponse extends AxiosError{
+	
 }

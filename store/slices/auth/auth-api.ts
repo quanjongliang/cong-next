@@ -1,16 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { LoginDTO } from "shared/dto/login.dto";
-import { User } from "shared/business/user";
+import { AuthService } from "services/auth.service";
+import Container from "typedi";
 
+const authService = Container.get(AuthService)
 
-
-export const signIn = createAsyncThunk(
-  "login",
-  async (loginDTO: LoginDTO) => {
-    return {
-      access_token: JSON.stringify("abcxyz"),
-      user: new User(),
-    };
+export const getUserInfo = createAsyncThunk(
+  "getUserInfo",
+  async () => {
+   return authService.getUserInfo()
   }
 );
 
