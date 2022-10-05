@@ -35,13 +35,15 @@ const Home: NextPage = () => {
         const {
           data: { data },
         } = await bannerService.getBanner(new GetBannerDTO());
-        setBanners(
-          data.map((item) => ({
-            id: item.public_id,
-            image: item.url,
-            label: item.original_filename,
-          }))
-        );
+        if (data.length > 0) {
+          setBanners(
+            data.map((item) => ({
+              id: item.public_id,
+              image: item.url,
+              label: item.original_filename,
+            }))
+          );
+        }
       } catch (error) {
         console.log(error);
       }
