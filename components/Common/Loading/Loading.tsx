@@ -24,7 +24,11 @@ export default function Loading() {
         width: "100vw",
       }}
     >
-      <div className="mosaic-loader">{renderLoadingItem()}</div>
+      <div className="loading-spinner">
+        <div className="spinner-item"></div>
+        <div className="spinner-item"></div>
+        <div className="spinner-item"></div>
+      </div>
     </Grid>
   );
 }

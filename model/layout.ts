@@ -39,7 +39,7 @@ export const DefaultPagination: PaginationOption = {
 };
 
 export const ConfigTheme: ConfigProps = {
-    fontFamily: `'Roboto', sans-serif`,
+    fontFamily: `'Montserrat', sans-serif`,
     borderRadius: 8,
     outlinedFilled: true,
     navType: "light", // light, dark

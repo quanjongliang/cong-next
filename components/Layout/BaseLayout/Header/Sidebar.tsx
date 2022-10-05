@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
   styled,
+  SwipeableDrawer,
   Theme,
   Typography,
 } from "@mui/material";
@@ -26,49 +27,10 @@ import { useRouter } from "next/router";
 import { memo } from "react";
 import { drawerWidth } from "themes/variables/constants";
 
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(8)} + 20px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} +20px)`,
-  },
-});
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
-}));
-
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
@@ -105,31 +67,32 @@ function Sidebar({ openDrawer, handleVisibleDrawer }: IData) {
   const { pathname } = useRouter();
 
   return (
-    <Drawer variant="permanent" open={openDrawer}>
+    <SwipeableDrawer
+      anchor="left"
+      open={openDrawer}
+      onClose={handleVisibleDrawer}
+      onOpen={handleVisibleDrawer}
+    >
       <DrawerHeader>
-        <IconButton
-          onClick={handleVisibleDrawer}
-          sx={{
-            m: openDrawer ? 0 : "auto",
-          }}
-        >
-          {openDrawer ? (
-            <ChevronLeftIcon fontSize="large" />
-          ) : (
-            <ChevronRightIcon fontSize="large" />
-          )}
+        <IconButton onClick={handleVisibleDrawer}>
+          <ChevronLeftIcon fontSize="large" />
         </IconButton>
       </DrawerHeader>
       <Divider />
       <List>
         {sidebarItems.map(({ icon: IconSidebar, label, link }, index) => (
-          <ListItem key={index} disablePadding sx={{ display: "block" }}>
+          <ListItem
+            key={index}
+            disablePadding
+            sx={{ display: "block", textAlign: "left" }}
+          >
             <Link href={link}>
               <a>
                 <ListItemButton
                   sx={{
                     minHeight: 48,
-                    justifyContent: openDrawer ? "initial" : "center",
+                    pl: 0,
+                    pr: 10,
                   }}
                   selected={pathname.includes(link)}
                 >
@@ -142,15 +105,7 @@ function Sidebar({ openDrawer, handleVisibleDrawer }: IData) {
                     <IconSidebar size={30} stroke={2.5} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={
-                      <Typography
-                        sx={{
-                          fontSize: 20,
-                        }}
-                      >
-                        {label}
-                      </Typography>
-                    }
+                    primary={<Typography variant="h4">{label}</Typography>}
                     sx={{ opacity: openDrawer ? 1 : 0 }}
                   />
                 </ListItemButton>
@@ -159,7 +114,7 @@ function Sidebar({ openDrawer, handleVisibleDrawer }: IData) {
           </ListItem>
         ))}
       </List>
-    </Drawer>
+    </SwipeableDrawer>
   );
 }
 

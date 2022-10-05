@@ -20,7 +20,7 @@ export default function Banner({ data }: IData) {
             <Box
               component="img"
               width="100%"
-              height={400}
+              height="100%"
               sx={{
                 objectFit: "cover",
               }}

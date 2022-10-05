@@ -1,14 +1,16 @@
-import { Grid, useTheme } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Grid, IconButton, useTheme } from "@mui/material";
 import useAuth from "hooks/useAuth";
-import { drawerWidth } from "themes/variables/constants";
-import Auth from "./Auth.tsx/Auth";
+import { memo } from "react";
+import Auth from "../../../Modules/Auth.tsx/Auth";
 import Logo from "./Logo";
 import MenuHeader from "./MenuHeader";
 import SearchHeader from "./SearchHeader";
 interface IData {
   openDrawer: boolean;
+  handleVisibleDrawer: () => void;
 }
-export default function Header({ openDrawer }: IData) {
+function Header({ openDrawer, handleVisibleDrawer }: IData) {
   const theme = useTheme();
   const { user } = useAuth();
 
@@ -25,13 +27,20 @@ export default function Header({ openDrawer }: IData) {
           height: 70,
           position: "fixed",
           top: 0,
-          zIndex: 999,
-          width: `calc(100% - ${
-            openDrawer ? `${drawerWidth}px` : `calc(${theme.spacing(8)} + 20px)`
-          })`,
+          right: 0,
+          zIndex: openDrawer ? 99 : 9999,
         }}
       >
-        <Grid>
+        <Grid display="flex" alignItems="center">
+          <IconButton
+            onClick={handleVisibleDrawer}
+            sx={{
+              ml: 0.5,
+              color: "white",
+            }}
+          >
+            <MenuIcon fontSize="large" />
+          </IconButton>
           <Logo />
         </Grid>
         <Grid>
@@ -42,3 +51,5 @@ export default function Header({ openDrawer }: IData) {
     </Grid>
   );
 }
+
+export default memo(Header);

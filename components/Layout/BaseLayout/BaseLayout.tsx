@@ -19,6 +19,10 @@ export default function BaseLayout({ children }: IData) {
         height: "100%",
       }}
     >
+      <Header
+        openDrawer={openDrawer}
+        handleVisibleDrawer={handleVisibleDrawer}
+      />
       <Sidebar
         handleVisibleDrawer={handleVisibleDrawer}
         openDrawer={openDrawer}
@@ -28,12 +32,10 @@ export default function BaseLayout({ children }: IData) {
           width: "100%",
         }}
       >
-        <Header openDrawer={openDrawer} />
         <Grid
           sx={{
             marginTop: `70px`,
             height: "100%",
-            p: 2,
           }}
         >
           {children}

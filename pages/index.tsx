@@ -1,4 +1,5 @@
 import Banner, { IBannerData } from "components/Common/Banner";
+import ItemBox from "components/Modules/ItemBox";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { CloundinaryService } from "services/cloudinary.service";
@@ -52,8 +53,8 @@ const Home: NextPage = () => {
   }, []);
   return (
     <BaseLayout>
-      <p>Hello</p>
       <Banner data={banners} />
+      <ItemBox />
     </BaseLayout>
   );
 };
