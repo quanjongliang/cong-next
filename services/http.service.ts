@@ -33,12 +33,8 @@ export class HttpService {
         window.location.href=ROUTE.HOME
         localStorage.removeItem(USER_KEY)
       }
-      return error;
+      return Promise.reject(error);
     });
-  }
-
-  public get tokenInfo(): string {
-    return this.token && JSON.parse(this.token);
   }
 
   public async request<T extends DTO>(

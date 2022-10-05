@@ -1,7 +1,5 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import {
   CSSObject,
   Divider,
@@ -13,8 +11,19 @@ import {
   ListItemText,
   styled,
   Theme,
+  Typography,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
+import {
+  IconDeviceLaptop,
+  IconDeviceMobile,
+  IconDeviceTablet,
+  IconDotsCircleHorizontal,
+} from "@tabler/icons";
+import { ROUTE } from "model/route";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { memo } from "react";
 import { drawerWidth } from "themes/variables/constants";
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -69,41 +78,89 @@ interface IData {
   handleVisibleDrawer: () => void;
 }
 
-export default function Sidebar({ openDrawer, handleVisibleDrawer }: IData) {
+const sidebarItems = [
+  {
+    label: "IPorn",
+    link: ROUTE.MOBILE,
+    icon: IconDeviceMobile,
+  },
+  {
+    label: "Mac bok",
+    link: ROUTE.LAPTOP,
+    icon: IconDeviceLaptop,
+  },
+  {
+    label: "Tap let",
+    link: ROUTE.TABLET,
+    icon: IconDeviceTablet,
+  },
+  {
+    label: "Pk",
+    link: ROUTE.OTHER,
+    icon: IconDotsCircleHorizontal,
+  },
+];
+
+function Sidebar({ openDrawer, handleVisibleDrawer }: IData) {
+  const { pathname } = useRouter();
+
   return (
     <Drawer variant="permanent" open={openDrawer}>
       <DrawerHeader>
-        <IconButton onClick={handleVisibleDrawer}>
-          {openDrawer ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        <IconButton
+          onClick={handleVisibleDrawer}
+          sx={{
+            m: openDrawer ? 0 : "auto",
+          }}
+        >
+          {openDrawer ? (
+            <ChevronLeftIcon fontSize="large" />
+          ) : (
+            <ChevronRightIcon fontSize="large" />
+          )}
         </IconButton>
       </DrawerHeader>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: openDrawer ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  mr: openDrawer ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                sx={{ opacity: openDrawer ? 1 : 0, fontSize: 50 }}
-              />
-            </ListItemButton>
+        {sidebarItems.map(({ icon: IconSidebar, label, link }, index) => (
+          <ListItem key={index} disablePadding sx={{ display: "block" }}>
+            <Link href={link}>
+              <a>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: openDrawer ? "initial" : "center",
+                  }}
+                  selected={pathname.includes(link)}
+                >
+                  <ListItemIcon
+                    sx={{
+                      justifyContent: "center",
+                      fontSize: 20,
+                    }}
+                  >
+                    <IconSidebar size={30} stroke={2.5} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <Typography
+                        sx={{
+                          fontSize: 20,
+                        }}
+                      >
+                        {label}
+                      </Typography>
+                    }
+                    sx={{ opacity: openDrawer ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </a>
+            </Link>
           </ListItem>
         ))}
       </List>
     </Drawer>
   );
 }
+
+export default memo(Sidebar);

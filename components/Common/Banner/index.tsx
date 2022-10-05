@@ -20,12 +20,13 @@ export default function Banner({ data }: IData) {
             <Box
               component="img"
               width="100%"
-              maxHeight="400px"
+              height={400}
               sx={{
                 objectFit: "cover",
               }}
               alt={item.label}
               src={item.image}
+              loading="lazy"
             />
           </Grid>
         ))}

@@ -1,7 +1,5 @@
 import { Grid, useTheme } from "@mui/material";
 import useAuth from "hooks/useAuth";
-import { useEffect } from "react";
-import { useState } from "react";
 import { drawerWidth } from "themes/variables/constants";
 import Auth from "./Auth.tsx/Auth";
 import Logo from "./Logo";
@@ -21,6 +19,7 @@ export default function Header({ openDrawer }: IData) {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
+        flexWrap="nowrap"
         sx={{
           background: theme.palette.primary.light,
           height: 70,
