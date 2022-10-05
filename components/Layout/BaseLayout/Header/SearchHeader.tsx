@@ -74,8 +74,10 @@ export default function SearchHeader() {
   };
 
   useEffect(() => {
-    console.log(search);
-  }, [debounce]);
+    if (search) {
+      console.log(search);
+    }
+  }, [debounce, search]);
   return (
     <Grid>
       <Search>

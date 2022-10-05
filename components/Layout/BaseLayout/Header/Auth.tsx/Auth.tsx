@@ -5,6 +5,7 @@ import {
   defaultSuccessAlert,
 } from "components/Common/Notification/Snackbar";
 import { USER_KEY } from "model/auth";
+import { getErrorMessage } from "model/http";
 import Router from "next/router";
 import { useState } from "react";
 import { AuthService } from "services/auth.service";
@@ -40,14 +41,11 @@ export default function Auth() {
       .login(new LoginDTO(data))
       .then((res) => {
         dispatch(openSnackbar(defaultSuccessAlert("Đăng nhập thành công")));
-        const {
-          data: { accessToken },
-        } = res;
-        localStorage.setItem(USER_KEY, accessToken);
         Router.reload();
       })
       .catch((err) => {
-        const errorMessage = err?.response?.data?.message || "Có lỗi xảy ra";
+        console.log("err", err);
+        const errorMessage = getErrorMessage(err);
         dispatch(openSnackbar(defaultErrorAlert(errorMessage)));
       })
       .finally(() => {
@@ -65,6 +63,7 @@ export default function Auth() {
         );
       })
       .catch((err) => {
+        console.log(err);
         const errorMessage = err?.response?.data?.message || "Có lỗi xảy ra";
         dispatch(openSnackbar(defaultSuccessAlert(errorMessage)));
       })

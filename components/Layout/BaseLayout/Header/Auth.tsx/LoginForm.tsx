@@ -108,7 +108,6 @@ export default function LoginForm({ handleLogin, isLoading }: IData) {
         size="large"
         disabled={isSubmitting}
         loading={isLoading}
-        loadingPosition="start"
       >
         Đăng nhập
       </LoadingButton>

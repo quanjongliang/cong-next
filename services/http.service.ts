@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { API_HOST } from "environment/environment";
 import { STATUS_CODES } from "http";
 import { USER_KEY } from "model/auth";
@@ -17,10 +17,13 @@ export class HttpService {
     axios.interceptors.response.use(
       (response) => {
       // TODO: handle token; 
-      console.log('res',response)
       const {status} = response
-      if(status === 401){
+      const isError = response instanceof AxiosError
+      if(isError && status ===401){
         window.location.href=ROUTE.HOME
+      } 
+      if(isError){
+        throw response 
       }
       return response;
     },
@@ -49,7 +52,12 @@ export class HttpService {
       data: dto.body,
       params: dto.query,
     });
+    if(response instanceof AxiosError) {
+      throw response
+    }
+
     return response.data as ResponseDTO<InstanceType<T["responseClass"]>>;
+   
   }
 
   private replaceUrlToParam = (url:string,param:object):string=>{

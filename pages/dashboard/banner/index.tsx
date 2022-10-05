@@ -1,5 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Button, Grid, Stack, Typography } from "@mui/material";
+import { AxiosError } from "axios";
 import Banner, { IBannerData } from "components/Common/Banner";
 import { defaultSuccessAlert } from "components/Common/Notification/Snackbar";
 import DashboardLayout from "components/Layout/AdminLayout/DashboardLayout";
@@ -41,13 +42,14 @@ export default function DashboardBanner() {
       bannerService
         .uploadBanner(new UploadBannerDTO(formData))
         .then((res) => {
-          console.log(res);
           dispatch(
             openSnackbar(defaultSuccessAlert("Upload banner successfully!"))
           );
         })
         .catch((err) => {
           console.log(err);
+          const errorMessage = err?.response?.data?.message || "Có lỗi xảy ra";
+          dispatch(openSnackbar(defaultSuccessAlert(errorMessage)));
         })
         .finally(() => {
           setIsLoading(false);
