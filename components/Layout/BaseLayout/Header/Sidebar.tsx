@@ -1,8 +1,7 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import {
-  CSSObject,
   Divider,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -11,21 +10,21 @@ import {
   ListItemText,
   styled,
   SwipeableDrawer,
-  Theme,
   Typography,
 } from "@mui/material";
-import MuiDrawer from "@mui/material/Drawer";
 import {
   IconDeviceLaptop,
   IconDeviceMobile,
   IconDeviceTablet,
   IconDotsCircleHorizontal,
+  IconDashboard,
 } from "@tabler/icons";
 import { ROUTE } from "model/route";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { memo } from "react";
-import { drawerWidth } from "themes/variables/constants";
+import { USER_ROLE } from "shared/business/user";
+import { useSelector } from "store";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -65,7 +64,7 @@ const sidebarItems = [
 
 function Sidebar({ openDrawer, handleVisibleDrawer }: IData) {
   const { pathname } = useRouter();
-
+  const { user } = useSelector((state) => state.auth);
   return (
     <SwipeableDrawer
       anchor="left"
@@ -74,6 +73,34 @@ function Sidebar({ openDrawer, handleVisibleDrawer }: IData) {
       onOpen={handleVisibleDrawer}
     >
       <DrawerHeader>
+        {user?.role === USER_ROLE.ADMIN && (
+          <Grid>
+            <Link href="dashboard">
+              <a>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    pl: 0,
+                    pr: 10,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      justifyContent: "center",
+                      fontSize: 20,
+                    }}
+                  >
+                    <IconDashboard size={30} stroke={2.5} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={<Typography variant="h4">Dashboard</Typography>}
+                    sx={{ opacity: openDrawer ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </a>
+            </Link>
+          </Grid>
+        )}
         <IconButton onClick={handleVisibleDrawer}>
           <ChevronLeftIcon fontSize="large" />
         </IconButton>
