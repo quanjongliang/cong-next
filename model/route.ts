@@ -8,4 +8,5 @@ export enum ROUTE{
     DASHBOARD='/dashboard',
     DASHBOARD_TAG='/dashboard/tags',
     DASHBOARD_BANNER='/dashboard/banner',
+    DASHBOARD_MOBILE='/dashboard/mobile',
 }

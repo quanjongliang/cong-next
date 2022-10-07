@@ -1,10 +1,11 @@
+import AdbIcon from "@mui/icons-material/Adb";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Avatar,
   Box,
   Button,
   Container,
-  Grid,
   IconButton,
   Menu,
   MenuItem,
@@ -13,10 +14,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
 import { ROUTE } from "model/route";
+import { useState } from "react";
 import { UserInfoResponse } from "shared/business/user";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];

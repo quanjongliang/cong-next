@@ -9,6 +9,19 @@ export class GetBannerResponse{
     public_id:string}[]
 }
 
+export class UploadOneBannerDTO extends DTO {
+  public url = BANNER_API.CLOUNDINARY_BANNER;
+  public method = METHOD.POST;
+  body: FormData;
+  public readonly responseClass = EmptyResponse;
+  public query: undefined;
+  public param:undefined;
+  constructor(data:FormData) {
+    super();
+    this.body = data
+  }
+}
+
 export class UploadBannerDTO extends DTO {
   public url = BANNER_API.CLOUNDINARY;
   public method = METHOD.POST;

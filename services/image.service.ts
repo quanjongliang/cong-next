@@ -1,21 +1,18 @@
-import { EmptyResponse, ResponseDTO } from "shared/dto/base.dto";
+import { ResponseDTO } from "shared/dto/base.dto";
+import { CreateImageDTO, GetImageBannerDTO, GetImageBannerResponse } from "shared/dto/image.dto";
 import { GetBannerDTO, GetBannerResponse, UploadBannerDTO, UploadOneBannerDTO } from "shared/dto/upload-banner.dto ";
 import Container, { Service } from "typedi";
 import { HttpService } from "./http.service";
 
 @Service()
-export class CloundinaryService{
+export class ImageService{
     private httpService = Container.get(HttpService)
 
-  async uploadBanner(dto:UploadBannerDTO){
+  async uploadImage(dto:CreateImageDTO){
     return this.httpService.request(dto)
   }
 
-  async uploadOneBanner(dto:UploadOneBannerDTO){
-    return this.httpService.request(dto)
-  }
-
-  async getBanner(dto:GetBannerDTO):Promise<ResponseDTO<GetBannerResponse>>{
+  async getBanner(dto:GetImageBannerDTO):Promise<ResponseDTO<GetImageBannerResponse>>{
     return this.httpService.request(dto)
   }
 }

@@ -24,7 +24,7 @@ export default function DashboardLayout({ children }: IData) {
     return <Grid />;
   }
   return (
-    <Grid>
+    <Grid height="100%">
       <DashboardHeader
         handleVisibleSidebar={handleVisibleSidebar}
         user={user}
@@ -33,7 +33,9 @@ export default function DashboardLayout({ children }: IData) {
         isOpenSidebar={isOpenSidebar}
         handleVisibleSidebar={handleVisibleSidebar}
       />
-      <Grid p={2}>{children}</Grid>
+      <Grid p={2} height="100%">
+        {children}
+      </Grid>
     </Grid>
   );
 }

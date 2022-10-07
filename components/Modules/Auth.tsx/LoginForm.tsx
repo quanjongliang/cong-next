@@ -3,20 +3,19 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   FormControl,
+  FormHelperText,
+  IconButton,
+  InputAdornment,
   InputLabel,
   OutlinedInput,
-  FormHelperText,
-  InputAdornment,
-  IconButton,
-  Button,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { FormItem } from "model/common";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { PASSWORD_PATTERN } from "shared/business/validation";
 import { ILoginBody } from "shared/dto/login.dto";
 import * as yup from "yup";
-import { Save } from "@mui/icons-material";
 const schema = yup
   .object({
     username: yup.string().required(),
@@ -46,11 +45,7 @@ export default function LoginForm({ handleLogin, isLoading }: IData) {
   const onSubmit: SubmitHandler<ILoginBody> = (data) => {
     handleLogin(data);
   };
-  const form: {
-    id: keyof ILoginBody;
-    label: string;
-    havePasswordHandle?: boolean;
-  }[] = [
+  const form: FormItem<ILoginBody>[] = [
     {
       id: "username",
       label: "Username",

@@ -1,60 +1,56 @@
-import Banner, { IBannerData } from "components/Common/Banner";
-import ItemBox from "components/Modules/ItemBox";
+import Banner from "components/Common/Banner";
+import CarouselListItem from "components/Common/CarouselListItem";
+import ItemBox from "components/Common/ItemBox";
+import { Image } from "model/image";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { CloundinaryService } from "services/cloudinary.service";
-import { GetBannerDTO } from "shared/dto/upload-banner.dto ";
+import { ImageService } from "services/image.service";
+import { GetImageBannerDTO } from "shared/dto/image.dto";
 import Container from "typedi";
 import BaseLayout from "../components/Layout/BaseLayout/BaseLayout";
 const fakeBanners = [
   {
     id: "1",
-    label: "Ip 14 ra mắt nè",
+    name: "Ip 14 ra mắt nè",
     image:
       "https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/690x300.png",
   },
   {
     id: "2",
-    label: "Samsung galaxy ne",
+    name: "Samsung galaxy ne",
     image:
       "https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/sliding-th10-flip4-new1.png",
   },
   {
     id: "3",
-    label: "Xiaomi ne",
+    name: "Xiaomi ne",
     image:
       "https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/12t-sliding-pre-order.png",
   },
 ];
 
-const bannerService = Container.get(CloundinaryService);
+const imageService = Container.get(ImageService);
 const Home: NextPage = () => {
-  const [banners, setBanners] = useState<IBannerData[]>(fakeBanners);
+  const [banners, setBanners] = useState<Image[]>(fakeBanners);
   useEffect(() => {
-    const getAllBanner = async () => {
-      try {
+    imageService
+      .getBanner(new GetImageBannerDTO())
+      .then((res) => {
+        console.log(res);
         const {
-          data: { data },
-        } = await bannerService.getBanner(new GetBannerDTO());
-        if (data.length > 0) {
-          setBanners(
-            data.map((item) => ({
-              id: item.public_id,
-              image: item.url,
-              label: item.original_filename,
-            }))
-          );
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllBanner();
+          data: { data: data },
+        } = res;
+        setBanners(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   return (
     <BaseLayout>
       <Banner data={banners} />
       <ItemBox />
+      <CarouselListItem />
     </BaseLayout>
   );
 };

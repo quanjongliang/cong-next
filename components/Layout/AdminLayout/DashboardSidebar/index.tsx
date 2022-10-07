@@ -7,21 +7,26 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { IconTag, IconBrandInertia } from "@tabler/icons";
+import { IconTag, IconBrandInertia, IconDeviceMobile } from "@tabler/icons";
 import { ROUTE } from "model/route";
 import Link from "next/link";
 import React from "react";
 
 const menuItems = [
   {
-    label: "Tags",
+    label: "Banner",
+    link: ROUTE.DASHBOARD_BANNER,
+    icon: <IconBrandInertia />,
+  },
+  {
+    label: "Danh mục",
     link: ROUTE.DASHBOARD_TAG,
     icon: <IconTag />,
   },
   {
-    label: "Banner",
-    link: ROUTE.DASHBOARD_BANNER,
-    icon: <IconBrandInertia />,
+    label: "Điện thoại",
+    link: ROUTE.DASHBOARD_MOBILE,
+    icon: <IconDeviceMobile />,
   },
 ];
 

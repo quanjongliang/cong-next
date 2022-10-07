@@ -2,7 +2,7 @@ import { METHOD } from 'model/http';
 
 export abstract class DTO {
 
-    public abstract query: unknown;
+    public abstract query?: unknown;
     public abstract body: unknown;
     public abstract param?: unknown
     public abstract readonly url: string;

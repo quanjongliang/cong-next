@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import { ReactNode, useState } from "react";
 import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
+// import MessengerChat from "react-messenger-customer-chat";
 import Sidebar from "./Header/Sidebar";
 interface IData {
   children?: ReactNode | ReactNode[];
@@ -23,6 +24,7 @@ export default function BaseLayout({ children }: IData) {
         openDrawer={openDrawer}
         handleVisibleDrawer={handleVisibleDrawer}
       />
+      {/* <MessengerChat pageId="103539711584646" language="vi_VN" /> */}
       <Sidebar
         handleVisibleDrawer={handleVisibleDrawer}
         openDrawer={openDrawer}

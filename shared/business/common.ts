@@ -12,5 +12,5 @@ export interface IResponsePagination<T>{
 }
 
 export interface IErrorResponse extends AxiosError{
-	
 }
+

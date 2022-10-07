@@ -44,7 +44,7 @@ export class HttpService {
       method: dto.method,
       headers: { Authorization: "Bearer " + this.token },
       baseURL: API_HOST ,
-      url: this.replaceUrlToParam(dto.url,dto.param || {}),
+      url: `${this.replaceUrlToParam(dto.url,dto.param || {})}`,
       data: dto.body,
       params: dto.query,
     });
@@ -58,5 +58,10 @@ export class HttpService {
 
   private replaceUrlToParam = (url:string,param:object):string=>{
     return Object.entries(param).reduce((newUrl,[key,value])=>newUrl.replace(":" + key.toString(),value.toString()),url)
+  }
+  private queryToUrl = (query?:Record<string,string>):string=>{
+    if(!query) return ""
+    return `?${new URLSearchParams(query).toString()}`
+
   }
 }

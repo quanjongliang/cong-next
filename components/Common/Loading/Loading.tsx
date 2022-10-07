@@ -1,14 +1,15 @@
 import { Grid } from "@mui/material";
-import React from "react";
-const cells = 4;
-export default function Loading() {
-  const renderLoadingItem = () => {
-    return [...new Array(cells)].map((_, i) => {
-      return [...new Array(cells)].map((_, j) => (
-        <div className={`cell d-${i + j}`} key={`${i}+${j}`} />
-      ));
-    });
-  };
+import { MoonLoader } from "react-spinners";
+import React, { CSSProperties, useState } from "react";
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
+interface IData {
+  isLoading: boolean;
+}
+export default function Loading({ isLoading }: IData) {
   return (
     <Grid
       display="flex"
@@ -19,16 +20,18 @@ export default function Loading() {
         top: 0,
         left: 0,
         zIndex: 99999,
-        background: "#26262699",
+        background: "#262626db",
         height: "100%",
         width: "100vw",
       }}
     >
-      <div className="loading-spinner">
-        <div className="spinner-item"></div>
-        <div className="spinner-item"></div>
-        <div className="spinner-item"></div>
-      </div>
+      <MoonLoader
+        color="rgb(54, 215, 183)"
+        loading={isLoading}
+        cssOverride={override}
+        size={150}
+        aria-label="Loading Spinner"
+      />
     </Grid>
   );
 }

@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { store } from "store";
 import { ThemeCustomization } from "themes";
-import "../styles/globals.scss";
-import "../styles/style.scss";
+import "../styles/globals.css";
+import "react-quill/dist/quill.snow.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <Snackbar />
         <AlertDialog />
-        {loading && <Loading />}
+        {loading && <Loading isLoading={loading} />}
       </ThemeCustomization>
     </Provider>
   );

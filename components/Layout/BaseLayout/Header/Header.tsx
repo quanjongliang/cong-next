@@ -28,7 +28,7 @@ function Header({ openDrawer, handleVisibleDrawer }: IData) {
           position: "fixed",
           top: 0,
           right: 0,
-          zIndex: openDrawer ? 99 : 9999,
+          zIndex: openDrawer ? 99 : 999,
         }}
       >
         <Grid display="flex" alignItems="center">

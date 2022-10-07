@@ -15,11 +15,11 @@ export type ConfigProps = {
 };
 
 export type PaginationOption = {
-    order: ORDER;
-    page: number;
-    query: string;
-    sortColumn: string;
-    take: number;
+    order?: ORDER;
+    page?: number;
+    query?: string;
+    sortColumn?: string;
+    take?: number;
 };
 
 export type PaginationMeta = {
