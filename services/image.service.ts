@@ -1,6 +1,5 @@
 import { ResponseDTO } from "shared/dto/base.dto";
 import { CreateImageDTO, DeleteImageByIdDTO, GetImageBannerDTO, GetImageBannerResponse } from "shared/dto/image.dto";
-import { GetBannerDTO, GetBannerResponse, UploadBannerDTO, UploadOneBannerDTO } from "shared/dto/upload-banner.dto ";
 import Container, { Service } from "typedi";
 import { HttpService } from "./http.service";
 
@@ -16,7 +15,7 @@ export class ImageService{
     return this.httpService.request(dto)
   }
 
-  async deleteImageById(dto:DeleteImageByIdDTO):Promise<ResponseDTO<GetImageBannerResponse>>{
+  async deleteImageById(dto:DeleteImageByIdDTO){
     return this.httpService.request(dto)
   }
 }

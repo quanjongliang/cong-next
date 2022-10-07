@@ -23,6 +23,7 @@ import Container from "typedi";
 import LoginForm from "./LoginForm";
 import Register from "./RegisterForm";
 import { IconX } from "@tabler/icons";
+import { getUserInfo } from "store/slices/auth/auth-api";
 const authService = Container.get(AuthService);
 
 export default function Auth() {
