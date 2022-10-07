@@ -1,5 +1,6 @@
 export enum IMAGE_URL {
   IMAGE = "/image",
+  IMAGE_ID = "/image/:id",
 }
 
 export class Image {

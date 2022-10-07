@@ -36,7 +36,6 @@ const Home: NextPage = () => {
     imageService
       .getBanner(new GetImageBannerDTO())
       .then((res) => {
-        console.log(res);
         const {
           data: { data: data },
         } = res;

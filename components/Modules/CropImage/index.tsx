@@ -154,7 +154,6 @@ export default function CropImage({ handleChangeWatch }: IData) {
   });
 
   const onSubmit: SubmitHandler<Image> = (data) => {
-    console.log(data);
     const image = onSubmitFile();
     if (image) {
       imageService
@@ -164,13 +163,11 @@ export default function CropImage({ handleChangeWatch }: IData) {
           })
         )
         .then((res) => {
-          console.log(res);
           dispatch(openSnackbar(defaultSuccessAlert("Upload ảnh thành công")));
           handleChangeWatch();
           onCancelUpload();
         })
         .catch((err) => {
-          console.log(err);
           const errorMessage = getErrorMessage(err);
           dispatch(openSnackbar(defaultErrorAlert(errorMessage)));
         });

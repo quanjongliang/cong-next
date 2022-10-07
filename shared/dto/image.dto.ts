@@ -10,6 +10,8 @@ export class IImageBody{
     data:Image[]
 }
 
+
+
 export class CreateImageDTO extends DTO {
     public url = IMAGE_URL.IMAGE;
     public method = METHOD.POST;
@@ -32,5 +34,20 @@ export class CreateImageDTO extends DTO {
     public param:undefined;
     constructor() {
       super();
+    }
+  }
+
+  export class DeleteImageByIdDTO extends DTO{
+    public url = IMAGE_URL.IMAGE_ID;
+    public method = METHOD.DELETE;
+    body: undefined;
+    public readonly responseClass = EmptyResponse;
+    public query: undefined;
+    public param:{
+      id:string
+    };
+    constructor(param:{id:string}) {
+      super();
+      this.param = param
     }
   }
